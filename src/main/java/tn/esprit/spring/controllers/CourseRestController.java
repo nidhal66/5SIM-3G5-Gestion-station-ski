@@ -19,7 +19,7 @@ import java.util.List;
 public class CourseRestController {
     
     private final ICourseServices courseServices;
-    private static final Logger logger = LogManager.getLogger(YourModuleClass.class);
+    private static final Logger logger = LogManager.getLogger(Course.class);
 
     @Operation(description = "Add Course")
     @PostMapping("/add")
@@ -33,7 +33,7 @@ public class CourseRestController {
          return  courseServices.addCourse(course);
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
+             throw new RuntimeException("Error adding course: " + e.getMessage());
         }
     }
 
@@ -49,7 +49,7 @@ public class CourseRestController {
             return courseServices.retrieveAllCourses();
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
+             throw new RuntimeException("Error adding course: " + e.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ public class CourseRestController {
           return  courseServices.updateCourse(course);
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
+             throw new RuntimeException("Error adding course: " + e.getMessage());
         }
     }
 
