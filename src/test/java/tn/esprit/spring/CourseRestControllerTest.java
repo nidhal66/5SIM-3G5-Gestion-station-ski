@@ -85,7 +85,7 @@ public void testUpdateCourse() throws Exception {
     Course updatedCourse = new Course();
     updatedCourse.setNumCourse(1L);
     updatedCourse.setLevel(1);
-    updatedCourse.setPrice(150.0f);
+    updatedCourse.setPrice(100.0f);
     updatedCourse.setTimeSlot(75);
     updatedCourse.setTypeCourse(TypeCourse.INDIVIDUAL); // Replace with actual enum value
     updatedCourse.setSupport(Support.SKI); // Replace with actual enum value
@@ -95,7 +95,7 @@ public void testUpdateCourse() throws Exception {
     String requestBody = "{"
             + "\"numCourse\": 1,"
             + "\"level\": 1,"
-            + "\"price\": 150.0,"
+            + "\"price\": 100.0,"
             + "\"timeSlot\": 75,"
             + "\"typeCourse\": \"INDIVIDUAL\"," // Ensure the value is correct
             + "\"support\": \"SKI\"" // Ensure the value is correct
