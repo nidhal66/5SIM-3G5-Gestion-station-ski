@@ -33,7 +33,6 @@ public class CourseRestController {
          return  courseServices.addCourse(course);
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
         }
     }
 
@@ -49,7 +48,6 @@ public class CourseRestController {
             return courseServices.retrieveAllCourses();
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
         }
     }
 
@@ -65,7 +63,6 @@ public class CourseRestController {
           return  courseServices.updateCourse(course);
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
         }
     }
 
