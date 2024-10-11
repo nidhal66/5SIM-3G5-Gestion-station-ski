@@ -18,7 +18,7 @@ import java.util.List;
 public class InstructorRestController {
 
     private final IInstructorServices instructorServices;
-    private static final Logger logger = LogManager.getLogger(MyController.class);
+    private static final Logger logger = LogManager.getLogger(Instructor.class);
 
     @Operation(description = "Add Instructor")
     @PostMapping("/add")
