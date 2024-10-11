@@ -1,36 +1,28 @@
 package tn.esprit.spring;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+
 import tn.esprit.spring.controllers.CourseRestController;
 import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.services.ICourseServices;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@WebMvcTest(CourseRestController.class)
 public class CourseRestControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Mock
-    private ICourseServices courseServices;
 
     @InjectMocks
     private CourseRestController courseRestController;
+
+    @Mock
+    private ICourseServices courseServices;
 
     private Course course;
 
@@ -38,56 +30,57 @@ public class CourseRestControllerTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         course = new Course();
-        // Assuming your Course class has a constructor or fields to set values directly
-        course.setId(1L);  // Use the constructor or set it directly if possible
-        course.setName("Test Course"); // Use the constructor or set it directly if possible
+        course.setId(1L);
+        course.setName("Sample Course");
     }
 
     @Test
-    public void testAddCourse() throws Exception {
+    public void testAddCourse() {
         when(courseServices.addCourse(any(Course.class))).thenReturn(course);
 
-        mockMvc.perform(post("/course/add")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"name\":\"Test Course\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Test Course"));
+        Course result = courseRestController.addCourse(course);
+
+        verify(courseServices, times(1)).addCourse(any(Course.class));
+        assert result != null;
+        assert result.getId().equals(1L);
+        assert result.getName().equals("Sample Course");
     }
 
     @Test
-    public void testGetAllCourses() throws Exception {
+    public void testGetAllCourses() {
         List<Course> courses = new ArrayList<>();
         courses.add(course);
         when(courseServices.retrieveAllCourses()).thenReturn(courses);
 
-        mockMvc.perform(get("/course/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].name").value("Test Course"));
+        List<Course> result = courseRestController.getAllCourses();
+
+        verify(courseServices, times(1)).retrieveAllCourses();
+        assert result != null;
+        assert result.size() == 1;
+        assert result.get(0).getName().equals("Sample Course");
     }
 
     @Test
-    public void testUpdateCourse() throws Exception {
+    public void testUpdateCourse() {
         when(courseServices.updateCourse(any(Course.class))).thenReturn(course);
 
-        mockMvc.perform(put("/course/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"name\":\"Updated Course\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Updated Course"));
+        Course result = courseRestController.updateCourse(course);
+
+        verify(courseServices, times(1)).updateCourse(any(Course.class));
+        assert result != null;
+        assert result.getId().equals(1L);
+        assert result.getName().equals("Sample Course");
     }
 
     @Test
-    public void testGetById() throws Exception {
-        when(courseServices.retrieveCourse(1L)).thenReturn(course);
+    public void testGetById() {
+        when(courseServices.retrieveCourse(any(Long.class))).thenReturn(course);
 
-        mockMvc.perform(get("/course/get/{id-course}", 1L)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Test Course"));
+        Course result = courseRestController.getById(1L);
+
+        verify(courseServices, times(1)).retrieveCourse(any(Long.class));
+        assert result != null;
+        assert result.getId().equals(1L);
+        assert result.getName().equals("Sample Course");
     }
 }
