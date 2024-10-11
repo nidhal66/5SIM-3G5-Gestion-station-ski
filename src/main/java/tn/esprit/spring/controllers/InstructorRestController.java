@@ -32,7 +32,7 @@ public class InstructorRestController {
         return  instructorServices.addInstructor(instructor);
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
+             throw new RuntimeException("Error adding Instractor: " + e.getMessage());
         }
     }    
     
@@ -48,7 +48,7 @@ public class InstructorRestController {
         return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
+             throw new RuntimeException("Error assigning Instractor: " + e.getMessage());
         }
     }    
     
@@ -64,7 +64,7 @@ public class InstructorRestController {
         return instructorServices.retrieveAllInstructors();
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
+             throw new RuntimeException("Error getting Instractor: " + e.getMessage());
         }
     }    
     
@@ -81,7 +81,7 @@ public class InstructorRestController {
         return  instructorServices.updateInstructor(Instructor);
         } catch (Exception e) {
             logger.error("An error occurred while processing data: ", e);
-            return "Error!";
+             throw new RuntimeException("Error updating Instractor: " + e.getMessage());
         }
     }    
     
