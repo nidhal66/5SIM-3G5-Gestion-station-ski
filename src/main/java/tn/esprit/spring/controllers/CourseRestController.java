@@ -19,7 +19,7 @@ import java.util.List;
 public class CourseRestController {
     
     private final ICourseServices courseServices;
-    private static final Logger logger = LogManager.getLogger(YourModuleClass.class);
+    private static final Logger logger = LogManager.getLogger(Course.class);
 
     @Operation(description = "Add Course")
     @PostMapping("/add")
