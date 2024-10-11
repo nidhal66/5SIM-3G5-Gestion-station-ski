@@ -86,7 +86,7 @@ public void testUpdateCourse() throws Exception {
     updatedCourse.setNumCourse(1L);
     updatedCourse.setLevel(1);
     updatedCourse.setPrice(100.0f);
-    updatedCourse.setTimeSlot(75);
+    updatedCourse.setTimeSlot(60);
     updatedCourse.setTypeCourse(TypeCourse.INDIVIDUAL); // Replace with actual enum value
     updatedCourse.setSupport(Support.SKI); // Replace with actual enum value
 
@@ -96,7 +96,7 @@ public void testUpdateCourse() throws Exception {
             + "\"numCourse\": 1,"
             + "\"level\": 1,"
             + "\"price\": 100.0,"
-            + "\"timeSlot\": 75,"
+            + "\"timeSlot\": 60,"
             + "\"typeCourse\": \"INDIVIDUAL\"," // Ensure the value is correct
             + "\"support\": \"SKI\"" // Ensure the value is correct
             + "}";
@@ -106,8 +106,8 @@ public void testUpdateCourse() throws Exception {
             .content(requestBody))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.numCourse").value(1))
-            .andExpect(jsonPath("$.price").value(150.0))
-            .andExpect(jsonPath("$.timeSlot").value(75));
+            .andExpect(jsonPath("$.price").value(100.0))
+            .andExpect(jsonPath("$.timeSlot").value(60));
 }
 
 
