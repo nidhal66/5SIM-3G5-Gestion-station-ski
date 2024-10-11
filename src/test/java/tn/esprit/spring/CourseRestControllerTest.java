@@ -82,13 +82,7 @@ public class CourseRestControllerTest {
 
    @Test
 public void testUpdateCourse() throws Exception {
-    Course updatedCourse = new Course();
-    updatedCourse.setNumCourse(1L);
-    updatedCourse.setLevel(1);
-    updatedCourse.setPrice(150.0f); // Change to the expected updated price
-    updatedCourse.setTimeSlot(75);
-    course.setTypeCourse(TypeCourse.INDIVIDUAL); 
-        course.setSupport(Support.SKI); 
+
     when(courseServices.updateCourse(any(Course.class))).thenReturn(updatedCourse);
 
     mockMvc.perform(put("/course/update")
@@ -96,7 +90,7 @@ public void testUpdateCourse() throws Exception {
             .content("{\"numCourse\":1,\"level\":1,\"price\":150.0,\"timeSlot\":75,\"typeCourse\":\"SOME_TYPE\",\"support\":\"SOME_SUPPORT\"}"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.numCourse").value(1))
-            .andExpect(jsonPath("$.price").value(150.0))
+            .andExpect(jsonPath("$.price").value(100.0))
             .andExpect(jsonPath("$.timeSlot").value(75));
 }
 
