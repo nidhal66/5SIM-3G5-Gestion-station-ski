@@ -79,16 +79,16 @@ public class InstructorRestControllerTest {
     public void testUpdateInstructor() throws Exception {
         Instructor updatedInstructor = new Instructor();
         updatedInstructor.setNumInstructor(1L);
-        updatedInstructor.setFirstName("Jane");
-        updatedInstructor.setLastName("Smith");
+        updatedInstructor.setFirstName("John");
+        updatedInstructor.setLastName("Doe");
         updatedInstructor.setDateOfHire(LocalDate.of(2022, 1, 1));
 
         when(instructorServices.updateInstructor(any(Instructor.class))).thenReturn(updatedInstructor);
 
         String requestBody = "{"
                 + "\"numInstructor\": 1,"
-                + "\"firstName\": \"Jane\","
-                + "\"lastName\": \"Smith\","
+                + "\"firstName\": \"John\","
+                + "\"lastName\": \"Doe\","
                 + "\"dateOfHire\": \"2022-01-01\""
                 + "}";
 
@@ -97,8 +97,8 @@ public class InstructorRestControllerTest {
                 .content(requestBody))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numInstructor").value(1))
-                .andExpect(jsonPath("$.firstName").value("Jane"))
-                .andExpect(jsonPath("$.lastName").value("Smith"))
+                .andExpect(jsonPath("$.firstName").value("John"))
+                .andExpect(jsonPath("$.lastName").value("Doe"))
                 .andExpect(jsonPath("$.dateOfHire").value("2022-01-01"));
     }
 
