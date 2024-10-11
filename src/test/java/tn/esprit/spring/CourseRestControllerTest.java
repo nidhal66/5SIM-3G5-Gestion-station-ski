@@ -26,13 +26,13 @@ import java.util.List;
 public class CourseRestControllerTest {
 
     @Autowired
-    private MockMvc mockMvc; // Ensure this is properly injected
+    private MockMvc mockMvc;
 
     @Mock
-    private ICourseServices courseServices; // Mocked service
+    private ICourseServices courseServices;
 
     @InjectMocks
-    private CourseRestController courseRestController; // Inject mock service into controller
+    private CourseRestController courseRestController;
 
     private Course course;
 
