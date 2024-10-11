@@ -16,6 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tn.esprit.spring.controllers.CourseRestController;
 import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.TypeCourse;
+import tn.esprit.spring.entities.Support;
+
 import tn.esprit.spring.services.ICourseServices;
 
 import java.util.ArrayList;
