@@ -47,8 +47,8 @@ public class CourseRestControllerTest {
         course.setLevel(1);
         course.setPrice(100.0f);
         course.setTimeSlot(60);
-        course.setTypeCourse(TypeCourse.INDIVIDUAL); // Replace with actual enum value
-        course.setSupport(Support.SKI); // Replace with actual enum value
+        course.setTypeCourse(TypeCourse.INDIVIDUAL); 
+        course.setSupport(Support.SKI); 
     }
 
     @Test
@@ -86,7 +86,7 @@ public class CourseRestControllerTest {
 
         mockMvc.perform(put("/course/update")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"numCourse\":1,\"level\":1,\"price\":150.0,\"timeSlot\":75,\"typeCourse\":\"SOME_TYPE\",\"support\":\"SOME_SUPPORT\"}"))
+                .content("{\"numCourse\":1,\"level\":1,\"price\":150.0,\"timeSlot\":75,\"typeCourse\":\"INDIVIDUAL\",\"support\":\"SKI\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numCourse").value(1))
                 .andExpect(jsonPath("$.price").value(150.0))
