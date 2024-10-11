@@ -38,7 +38,14 @@ public class CourseRestControllerTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         // Initialize the course object with valid parameters
-        course = new Course(1L, "Test Course"); // Use constructor if available
+        course = new Course();
+        course.setNumCourse(1L); // Using numCourse
+        course.setLevel(1);
+        course.setPrice(100.0f);
+        course.setTimeSlot(60);
+        // Assume TypeCourse and Support are enums that you have defined
+        course.setTypeCourse(TypeCourse.SOME_TYPE); // Replace with actual enum value
+        course.setSupport(Support.SOME_SUPPORT); // Replace with actual enum value
     }
 
     @Test
@@ -47,10 +54,12 @@ public class CourseRestControllerTest {
 
         mockMvc.perform(post("/course/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"name\":\"Test Course\"}"))
+                .content("{\"numCourse\":1,\"level\":1,\"price\":100.0,\"timeSlot\":60,\"typeCourse\":\"SOME_TYPE\",\"support\":\"SOME_SUPPORT\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Test Course"));
+                .andExpect(jsonPath("$.numCourse").value(1))
+                .andExpect(jsonPath("$.level").value(1))
+                .andExpect(jsonPath("$.price").value(100.0))
+                .andExpect(jsonPath("$.timeSlot").value(60));
     }
 
     @Test
@@ -62,8 +71,10 @@ public class CourseRestControllerTest {
         mockMvc.perform(get("/course/all")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].name").value("Test Course"));
+                .andExpect(jsonPath("$[0].numCourse").value(1))
+                .andExpect(jsonPath("$[0].level").value(1))
+                .andExpect(jsonPath("$[0].price").value(100.0))
+                .andExpect(jsonPath("$[0].timeSlot").value(60));
     }
 
     @Test
@@ -72,20 +83,22 @@ public class CourseRestControllerTest {
 
         mockMvc.perform(put("/course/update")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"name\":\"Updated Course\"}"))
+                .content("{\"numCourse\":1,\"level\":1,\"price\":150.0,\"timeSlot\":75,\"typeCourse\":\"SOME_TYPE\",\"support\":\"SOME_SUPPORT\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Updated Course"));
+                .andExpect(jsonPath("$.numCourse").value(1))
+                .andExpect(jsonPath("$.price").value(150.0))
+                .andExpect(jsonPath("$.timeSlot").value(75));
     }
 
     @Test
     public void testGetById() throws Exception {
         when(courseServices.retrieveCourse(1L)).thenReturn(course);
 
-        mockMvc.perform(get("/course/get/{id-course}", 1L)
+        mockMvc.perform(get("/course/get/{num-course}", 1L)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Test Course"));
+                .andExpect(jsonPath("$.numCourse").value(1))
+                .andExpect(jsonPath("$.level").value(1))
+                .andExpect(jsonPath("$.price").value(100.0));
     }
 }
