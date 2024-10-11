@@ -18,13 +18,14 @@ import tn.esprit.spring.entities.Course;
 
 import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.entities.Support;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import tn.esprit.spring.services.ICourseServices;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@WebMvcTest(CourseRestController.class)
+@SpringBootTest
 public class CourseRestControllerTest {
 
     @Autowired
