@@ -10,47 +10,42 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tn.esprit.spring.controllers.CourseRestController;
 import tn.esprit.spring.entities.Course;
-
-import tn.esprit.spring.entities.TypeCourse;
-import tn.esprit.spring.entities.Support;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import tn.esprit.spring.services.ICourseServices;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class CourseRestControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc; // Ensure this is properly injected
 
     @Mock
-    private ICourseServices courseServices;
+    private ICourseServices courseServices; // Mocked service
 
     @InjectMocks
-    private CourseRestController courseRestController;
+    private CourseRestController courseRestController; // Inject mock service into controller
 
     private Course course;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        // Initialize the course object with valid parameters
         course = new Course();
-        course.setNumCourse(1L); // Using numCourse
+        course.setNumCourse(1L);
         course.setLevel(1);
         course.setPrice(100.0f);
         course.setTimeSlot(60);
-        // Assume TypeCourse and Support are enums that you have defined
-        course.setTypeCourse(TypeCourse.INDIVIDUAL); // Replace with actual enum value
-        course.setSupport(Support.SKI); // Replace with actual enum value
+        course.setTypeCourse(TypeCourse.SOME_TYPE); // Replace with actual enum value
+        course.setSupport(Support.SOME_SUPPORT); // Replace with actual enum value
     }
 
     @Test
