@@ -47,8 +47,8 @@ public class CourseRestControllerTest {
         course.setLevel(1);
         course.setPrice(100.0f);
         course.setTimeSlot(60);
-        course.setTypeCourse(TypeCourse.SOME_TYPE); // Replace with actual enum value
-        course.setSupport(Support.SOME_SUPPORT); // Replace with actual enum value
+        course.setTypeCourse(TypeCourse.INDIVIDUAL); // Replace with actual enum value
+        course.setSupport(Support.SKI); // Replace with actual enum value
     }
 
     @Test
