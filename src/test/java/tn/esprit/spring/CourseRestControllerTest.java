@@ -80,19 +80,36 @@ public class CourseRestControllerTest {
                 .andExpect(jsonPath("$[0].timeSlot").value(60));
     }
 
-   @Test
+@Test
 public void testUpdateCourse() throws Exception {
+    Course updatedCourse = new Course();
+    updatedCourse.setNumCourse(1L);
+    updatedCourse.setLevel(1);
+    updatedCourse.setPrice(150.0f);
+    updatedCourse.setTimeSlot(75);
+    updatedCourse.setTypeCourse(TypeCourse.INDIVIDUAL); // Replace with actual enum value
+    updatedCourse.setSupport(Support.SKI); // Replace with actual enum value
 
     when(courseServices.updateCourse(any(Course.class))).thenReturn(updatedCourse);
 
+    String requestBody = "{"
+            + "\"numCourse\": 1,"
+            + "\"level\": 1,"
+            + "\"price\": 150.0,"
+            + "\"timeSlot\": 75,"
+            + "\"typeCourse\": \"INDIVIDUAL\"," // Ensure the value is correct
+            + "\"support\": \"SKI\"" // Ensure the value is correct
+            + "}";
+
     mockMvc.perform(put("/course/update")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"numCourse\":1,\"level\":1,\"price\":150.0,\"timeSlot\":75,\"typeCourse\":\"SOME_TYPE\",\"support\":\"SOME_SUPPORT\"}"))
+            .content(requestBody))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.numCourse").value(1))
-            .andExpect(jsonPath("$.price").value(100.0))
+            .andExpect(jsonPath("$.price").value(150.0))
             .andExpect(jsonPath("$.timeSlot").value(75));
 }
+
 
 
     @Test
