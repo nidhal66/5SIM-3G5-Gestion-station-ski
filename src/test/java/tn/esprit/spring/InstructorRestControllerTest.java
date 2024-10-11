@@ -3,7 +3,7 @@ package tn.esprit.spring;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -81,7 +81,7 @@ public class InstructorRestControllerTest {
         updatedInstructor.setNumInstructor(1L);
         updatedInstructor.setFirstName("Jane");
         updatedInstructor.setLastName("Smith");
-        updatedInstructor.setDateOfHire(LocalDate.of(2023, 6, 15));
+        updatedInstructor.setDateOfHire(LocalDate.of(2022, 1, 1));
 
         when(instructorServices.updateInstructor(any(Instructor.class))).thenReturn(updatedInstructor);
 
@@ -89,7 +89,7 @@ public class InstructorRestControllerTest {
                 + "\"numInstructor\": 1,"
                 + "\"firstName\": \"Jane\","
                 + "\"lastName\": \"Smith\","
-                + "\"dateOfHire\": \"2023-06-15\""
+                + "\"dateOfHire\": \"2022-01-01\""
                 + "}";
 
         mockMvc.perform(put("/instructor/update")
@@ -99,7 +99,7 @@ public class InstructorRestControllerTest {
                 .andExpect(jsonPath("$.numInstructor").value(1))
                 .andExpect(jsonPath("$.firstName").value("Jane"))
                 .andExpect(jsonPath("$.lastName").value("Smith"))
-                .andExpect(jsonPath("$.dateOfHire").value("2023-06-15"));
+                .andExpect(jsonPath("$.dateOfHire").value("2022-01-01"));
     }
 
     @Test
