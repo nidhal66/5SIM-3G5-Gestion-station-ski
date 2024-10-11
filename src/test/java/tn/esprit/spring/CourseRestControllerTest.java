@@ -57,7 +57,7 @@ public class CourseRestControllerTest {
 
         mockMvc.perform(post("/course/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"numCourse\":1,\"level\":1,\"price\":100.0,\"timeSlot\":60,\"typeCourse\":\"SOME_TYPE\",\"support\":\"SOME_SUPPORT\"}"))
+                .content("{\"numCourse\":1,\"level\":1,\"price\":100.0,\"timeSlot\":60,\"typeCourse\":\"INDIVIDUAL\",\"support\":\"SKI\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numCourse").value(1))
                 .andExpect(jsonPath("$.level").value(1))
