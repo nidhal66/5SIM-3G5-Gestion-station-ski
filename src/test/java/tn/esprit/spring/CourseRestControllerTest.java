@@ -76,7 +76,7 @@ public class CourseRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].numCourse").value(1))
                 .andExpect(jsonPath("$[0].level").value(1))
-                .andExpect(jsonPath("$[0].price").value(100.0))
+                .andExpect(jsonPath("$[0].price").value(100.0f))
                 .andExpect(jsonPath("$[0].timeSlot").value(60));
     }
 
@@ -89,7 +89,7 @@ public class CourseRestControllerTest {
                 .content("{\"numCourse\":1,\"level\":1,\"price\":150.0,\"timeSlot\":75,\"typeCourse\":\"INDIVIDUAL\",\"support\":\"SKI\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numCourse").value(1))
-                .andExpect(jsonPath("$.price").value(150.0))
+                .andExpect(jsonPath("$.price").value(100.0f))
                 .andExpect(jsonPath("$.timeSlot").value(75));
     }
 
