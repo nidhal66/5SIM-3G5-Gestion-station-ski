@@ -29,15 +29,16 @@ public class PisteRestControllerTest {
         Piste piste = new Piste();
         piste.setNumPiste(1L);
         piste.setNamePiste("Piste 1");
-        
+
         when(pisteServices.addPiste(piste)).thenReturn(piste);
 
         // Act
         Piste result = pisteRestController.addPiste(piste);
 
         // Assert
-        assertNotNull(result);
-        assertEquals(piste.getNumPiste(), result.getNumPiste());
+        assertNotNull(result, "Le résultat ne doit pas être nul.");
+        assertEquals(piste.getNumPiste(), result.getNumPiste(), "Les IDs de piste devraient correspondre.");
+        assertEquals(piste.getNamePiste(), result.getNamePiste(), "Les noms de piste devraient correspondre.");
         verify(pisteServices, times(1)).addPiste(piste);
     }
 
@@ -56,8 +57,8 @@ public class PisteRestControllerTest {
         List<Piste> result = pisteRestController.getAllPistes();
 
         // Assert
-        assertNotNull(result);
-        assertEquals(2, result.size());
+        assertNotNull(result, "La liste de pistes ne doit pas être nulle.");
+        assertEquals(2, result.size(), "La taille de la liste de pistes devrait être de 2.");
         verify(pisteServices, times(1)).retrieveAllPistes();
     }
 
@@ -73,8 +74,8 @@ public class PisteRestControllerTest {
         Piste result = pisteRestController.getById(1L);
 
         // Assert
-        assertNotNull(result);
-        assertEquals(1L, result.getNumPiste());
+        assertNotNull(result, "La piste récupérée ne doit pas être nulle.");
+        assertEquals(1L, result.getNumPiste(), "L'ID de piste devrait correspondre.");
         verify(pisteServices, times(1)).retrievePiste(1L);
     }
 
