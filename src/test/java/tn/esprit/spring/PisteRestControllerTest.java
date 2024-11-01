@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tn.esprit.spring.controllers.PisteRestController;
+import tn.esprit.spring.entities.Color; // Importer l'énumération Color
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.services.IPisteServices;
 
@@ -42,7 +43,7 @@ public class PisteRestControllerTest {
         piste = new Piste();
         piste.setNumPiste(1L);
         piste.setNamePiste("Piste 1");
-        piste.setColor("Blue");
+        piste.setColor(Color.BLUE); // Utilisation de l'énumération ici
         piste.setLength(1500);
         piste.setSlope(30);
     }
@@ -53,11 +54,11 @@ public class PisteRestControllerTest {
 
         mockMvc.perform(post("/piste/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"numPiste\":1,\"namePiste\":\"Piste 1\",\"color\":\"Blue\",\"length\":1500,\"slope\":30}"))
+                .content("{\"numPiste\":1,\"namePiste\":\"Piste 1\",\"color\":\"BLUE\",\"length\":1500,\"slope\":30}")) // Utilisation de "BLUE"
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numPiste").value(1))
                 .andExpect(jsonPath("$.namePiste").value("Piste 1"))
-                .andExpect(jsonPath("$.color").value("Blue"))
+                .andExpect(jsonPath("$.color").value("BLUE")) // Utilisation de "BLUE"
                 .andExpect(jsonPath("$.length").value(1500))
                 .andExpect(jsonPath("$.slope").value(30));
     }
@@ -73,7 +74,7 @@ public class PisteRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].numPiste").value(1))
                 .andExpect(jsonPath("$[0].namePiste").value("Piste 1"))
-                .andExpect(jsonPath("$[0].color").value("Blue"))
+                .andExpect(jsonPath("$[0].color").value("BLUE")) // Utilisation de "BLUE"
                 .andExpect(jsonPath("$[0].length").value(1500))
                 .andExpect(jsonPath("$[0].slope").value(30));
     }
@@ -83,7 +84,7 @@ public class PisteRestControllerTest {
         Piste updatedPiste = new Piste();
         updatedPiste.setNumPiste(1L);
         updatedPiste.setNamePiste("Piste Updated");
-        updatedPiste.setColor("Red");
+        updatedPiste.setColor(Color.RED); // Utilisation de l'énumération ici
         updatedPiste.setLength(1600);
         updatedPiste.setSlope(35);
 
@@ -92,7 +93,7 @@ public class PisteRestControllerTest {
         String requestBody = "{"
                 + "\"numPiste\": 1,"
                 + "\"namePiste\": \"Piste Updated\","
-                + "\"color\": \"Red\","
+                + "\"color\": \"RED\"," // Utilisation de "RED"
                 + "\"length\": 1600,"
                 + "\"slope\": 35"
                 + "}";
@@ -103,7 +104,7 @@ public class PisteRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numPiste").value(1))
                 .andExpect(jsonPath("$.namePiste").value("Piste Updated"))
-                .andExpect(jsonPath("$.color").value("Red"))
+                .andExpect(jsonPath("$.color").value("RED")) // Utilisation de "RED"
                 .andExpect(jsonPath("$.length").value(1600))
                 .andExpect(jsonPath("$.slope").value(35));
     }
@@ -117,7 +118,7 @@ public class PisteRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numPiste").value(1))
                 .andExpect(jsonPath("$.namePiste").value("Piste 1"))
-                .andExpect(jsonPath("$.color").value("Blue"))
+                .andExpect(jsonPath("$.color").value("BLUE")) // Utilisation de "BLUE"
                 .andExpect(jsonPath("$.length").value(1500))
                 .andExpect(jsonPath("$.slope").value(30));
     }
