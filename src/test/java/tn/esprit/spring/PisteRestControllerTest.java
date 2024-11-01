@@ -1,134 +1,109 @@
-package tn.esprit.spring;
+package tn.esprit.spring.services;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import tn.esprit.spring.controllers.PisteRestController;
-import tn.esprit.spring.entities.Color; // Importer l'énumération Color
+import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.entities.Piste;
-import tn.esprit.spring.services.IPisteServices;
+import tn.esprit.spring.services.impl.PisteServicesImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class PisteRestControllerTest {
+public class PisteServicesTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Mock
     private IPisteServices pisteServices;
-
-    @InjectMocks
-    private PisteRestController pisteRestController;
-
-    private Piste piste;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        piste = new Piste();
-        piste.setNumPiste(1L);
-        piste.setNamePiste("Piste 1");
-        piste.setColor(Color.BLUE); // Utilisation de l'énumération ici
-        piste.setLength(1500);
-        piste.setSlope(30);
+        pisteServices = new PisteServicesImpl(); // Crée une instance de PisteServicesImpl
     }
 
     @Test
-    public void testAddPiste() throws Exception {
-        when(pisteServices.addPiste(any(Piste.class))).thenReturn(piste);
-
-        mockMvc.perform(post("/piste/add")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"numPiste\":1,\"namePiste\":\"Piste 1\",\"color\":\"BLUE\",\"length\":1500,\"slope\":30}")) // Utilisation de "BLUE"
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.numPiste").value(1))
-                .andExpect(jsonPath("$.namePiste").value("Piste 1"))
-                .andExpect(jsonPath("$.color").value("BLUE")) // Utilisation de "BLUE"
-                .andExpect(jsonPath("$.length").value(1500))
-                .andExpect(jsonPath("$.slope").value(30));
+    public void testAddPiste() {
+        // Crée une nouvelle piste
+        Piste pisteToAdd = new Piste();
+        pisteToAdd.setNumPiste(1L);
+        pisteToAdd.setNamePiste("Piste 1");
+        pisteToAdd.setColor(Color.BLUE);
+        pisteToAdd.setLength(1500);
+        pisteToAdd.setSlope(30);
+        
+        // Ajoute la piste
+        Piste result = pisteServices.addPiste(pisteToAdd);
+        
+        // Vérifie que la piste a été ajoutée correctement
+        assertNotNull(result);
+        assertEquals("Piste 1", result.getNamePiste());
+        assertEquals(Color.BLUE, result.getColor());
+        assertEquals(1500, result.getLength());
+        assertEquals(30, result.getSlope());
     }
 
     @Test
-    public void testGetAllPistes() throws Exception {
-        List<Piste> pistes = new ArrayList<>();
-        pistes.add(piste);
-        when(pisteServices.retrieveAllPistes()).thenReturn(pistes);
+    public void testRetrieveAllPistes() {
+        // Ajoute quelques pistes
+        Piste piste1 = new Piste();
+        piste1.setNumPiste(1L);
+        piste1.setNamePiste("Piste 1");
+        piste1.setColor(Color.BLUE);
+        piste1.setLength(1500);
+        piste1.setSlope(30);
+        pisteServices.addPiste(piste1);
+        
+        Piste piste2 = new Piste();
+        piste2.setNumPiste(2L);
+        piste2.setNamePiste("Piste 2");
+        piste2.setColor(Color.GREEN);
+        piste2.setLength(2000);
+        piste2.setSlope(25);
+        pisteServices.addPiste(piste2);
 
-        mockMvc.perform(get("/piste/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].numPiste").value(1))
-                .andExpect(jsonPath("$[0].namePiste").value("Piste 1"))
-                .andExpect(jsonPath("$[0].color").value("BLUE")) // Utilisation de "BLUE"
-                .andExpect(jsonPath("$[0].length").value(1500))
-                .andExpect(jsonPath("$[0].slope").value(30));
+        // Récupère toutes les pistes
+        List<Piste> pistes = pisteServices.retrieveAllPistes();
+        
+        // Vérifie que les pistes sont présentes
+        assertEquals(2, pistes.size());
+        assertEquals("Piste 1", pistes.get(0).getNamePiste());
+        assertEquals("Piste 2", pistes.get(1).getNamePiste());
     }
 
     @Test
-    public void testUpdatePiste() throws Exception {
-        Piste updatedPiste = new Piste();
-        updatedPiste.setNumPiste(1L);
-        updatedPiste.setNamePiste("Piste Updated");
-        updatedPiste.setColor(Color.RED); // Utilisation de l'énumération ici
-        updatedPiste.setLength(1600);
-        updatedPiste.setSlope(35);
-
-        when(pisteServices.updatePiste(any(Piste.class))).thenReturn(updatedPiste);
-
-        String requestBody = "{"
-                + "\"numPiste\": 1,"
-                + "\"namePiste\": \"Piste Updated\","
-                + "\"color\": \"RED\"," // Utilisation de "RED"
-                + "\"length\": 1600,"
-                + "\"slope\": 35"
-                + "}";
-
-        mockMvc.perform(put("/piste/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.numPiste").value(1))
-                .andExpect(jsonPath("$.namePiste").value("Piste Updated"))
-                .andExpect(jsonPath("$.color").value("RED")) // Utilisation de "RED"
-                .andExpect(jsonPath("$.length").value(1600))
-                .andExpect(jsonPath("$.slope").value(35));
+    public void testRetrievePiste() {
+        // Ajoute une piste
+        Piste pisteToAdd = new Piste();
+        pisteToAdd.setNumPiste(1L);
+        pisteToAdd.setNamePiste("Piste 1");
+        pisteToAdd.setColor(Color.BLUE);
+        pisteToAdd.setLength(1500);
+        pisteToAdd.setSlope(30);
+        pisteServices.addPiste(pisteToAdd);
+        
+        // Récupère la piste par son ID
+        Piste retrievedPiste = pisteServices.retrievePiste(1L);
+        
+        // Vérifie que la piste récupérée est correcte
+        assertNotNull(retrievedPiste);
+        assertEquals("Piste 1", retrievedPiste.getNamePiste());
     }
 
     @Test
-    public void testGetById() throws Exception {
-        when(pisteServices.retrievePiste(1L)).thenReturn(piste);
+    public void testRemovePiste() {
+        // Ajoute une piste
+        Piste pisteToAdd = new Piste();
+        pisteToAdd.setNumPiste(1L);
+        pisteToAdd.setNamePiste("Piste 1");
+        pisteToAdd.setColor(Color.BLUE);
+        pisteToAdd.setLength(1500);
+        pisteToAdd.setSlope(30);
+        pisteServices.addPiste(pisteToAdd);
+        
+        // Vérifie que la piste est ajoutée
+        assertNotNull(pisteServices.retrievePiste(1L));
 
-        mockMvc.perform(get("/piste/get/{id-piste}", 1L)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.numPiste").value(1))
-                .andExpect(jsonPath("$.namePiste").value("Piste 1"))
-                .andExpect(jsonPath("$.color").value("BLUE")) // Utilisation de "BLUE"
-                .andExpect(jsonPath("$.length").value(1500))
-                .andExpect(jsonPath("$.slope").value(30));
-    }
-
-    @Test
-    public void testDeleteById() throws Exception {
-        doNothing().when(pisteServices).removePiste(1L);
-
-        mockMvc.perform(delete("/piste/delete/{id-piste}", 1L)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        // Supprime la piste
+        pisteServices.removePiste(1L);
+        
+        // Vérifie que la piste a été supprimée
+        assertNull(pisteServices.retrievePiste(1L));
     }
 }
