@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.services.IPisteServices;
+import tn.esprit.spring.controllers.PisteRestController;
 
 import java.util.Arrays;
 import java.util.List;
