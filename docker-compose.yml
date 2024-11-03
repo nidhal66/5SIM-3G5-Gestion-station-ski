@@ -14,7 +14,7 @@ services:
   app-timesheet:
     depends_on:
       - mysqldb
-    image: nidhaltekaya/gestionski:1.0.0
+    image: nidhal777/gestionski:1.0.0
     #build : ./
     restart: on-failure
     ports:
