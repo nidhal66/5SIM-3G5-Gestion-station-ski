@@ -43,19 +43,19 @@ pipeline {
                 sh 'mvn deploy -DskipTests';
             }
         }
-/*
+
         stage('Image') {
             steps {
                 echo 'Création Image : ';
-                sh 'docker build -t mouradhassini/achat-image:1.0.0 .';
+                sh 'docker build -t nidhal777/gestion-station-ski-image:1.0.0 .';
             }
         }
 
         stage('Dockerhub') {
             steps {
                 echo 'Push Image to dockerhub : ';
-                sh 'docker login -u mouradhassini -p votrepassworddockerhub';
-                sh 'docker push mouradhassini/achat-image:1.0.0';
+                sh 'docker login -u nidhal777 -p Vagrant@2024';
+                sh 'docker push nidhal777/gestion-station-ski-image:1.0.0';
             }
         }
 
@@ -64,7 +64,7 @@ pipeline {
                 echo 'Staet Backend + DB : ';
                 sh 'docker compose up -d';
             }
-        }*/
+        }
 
     }
 }
