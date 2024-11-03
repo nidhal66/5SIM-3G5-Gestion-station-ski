@@ -87,8 +87,8 @@ public void testUpdateCourse() throws Exception {
     updatedCourse.setLevel(1);
     updatedCourse.setPrice(100.0f);
     updatedCourse.setTimeSlot(60);
-    updatedCourse.setTypeCourse(TypeCourse.INDIVIDUAL); // Replace with actual enum value
-    updatedCourse.setSupport(Support.SKI); // Replace with actual enum value
+    updatedCourse.setTypeCourse(TypeCourse.INDIVIDUAL); 
+    updatedCourse.setSupport(Support.SKI); 
 
     when(courseServices.updateCourse(any(Course.class))).thenReturn(updatedCourse);
 
