@@ -62,7 +62,7 @@ public class CourseRestControllerTest {
                 .andExpect(jsonPath("$.numCourse").value(1))
                 .andExpect(jsonPath("$.level").value(1))
                 .andExpect(jsonPath("$.price").value(100.0))
-                .andExpect(jsonPath("$.timeSlot").value(60));
+                .andExpect(jsonPath("$.timeSlot").value(60)); //forwebhook
     }
 
     @Test
