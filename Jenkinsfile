@@ -36,13 +36,13 @@ pipeline {
                 echo 'Création du livrable : ';
                 sh 'mvn package -DskipTests';
             }
-        }
+        }/*
          stage('Maven Deploy') {
             steps {
                 echo 'Deploiement du livrable : ';
                 sh 'mvn deploy -DskipTests';
             }
-        }
+        }*/
 
         stage('Image') {
             steps {
