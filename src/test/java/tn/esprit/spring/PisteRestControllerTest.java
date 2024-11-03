@@ -58,7 +58,7 @@ public class PisteRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.numPiste").value(1))
                 .andExpect(jsonPath("$.namePiste").value("Piste 1"))
-                .andExpect(jsonPath("$.color").value("BLUE")) // Doit correspondre à la valeur d'énumération
+                .andExpect(jsonPath("$.color").value("BLUE")) 
                 .andExpect(jsonPath("$.length").value(1500))
                 .andExpect(jsonPath("$.slope").value(30));
     }
