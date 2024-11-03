@@ -97,8 +97,8 @@ public void testUpdateCourse() throws Exception {
             + "\"level\": 1,"
             + "\"price\": 100.0,"
             + "\"timeSlot\": 60,"
-            + "\"typeCourse\": \"INDIVIDUAL\"," // Ensure the value is correct
-            + "\"support\": \"SKI\"" // Ensure the value is correct
+            + "\"typeCourse\": \"INDIVIDUAL\"," 
+            + "\"support\": \"SKI\""
             + "}";
 
     mockMvc.perform(put("/course/update")
