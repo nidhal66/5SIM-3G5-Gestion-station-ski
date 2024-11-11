@@ -43,11 +43,13 @@ public class RegistrationRestControllerTest {
         registration = new Registration();
         registration.setNumRegistration(1L);
         registration.setNumWeek(5);
-        // Initialiser d'autres champs si nécessaire
+        // Initialize other fields if necessary
     }
 
+    // Test for adding and assigning to skier
     @Test
     public void testAddAndAssignToSkier() throws Exception {
+        // Mock the service call
         when(registrationServices.addRegistrationAndAssignToSkier(any(Registration.class), anyLong()))
                 .thenReturn(registration);
 
@@ -59,8 +61,10 @@ public class RegistrationRestControllerTest {
                 .andExpect(jsonPath("$.numWeek").value(5));
     }
 
+    // Test for assigning to a course
     @Test
     public void testAssignToCourse() throws Exception {
+        // Mock the service call
         when(registrationServices.assignRegistrationToCourse(anyLong(), anyLong()))
                 .thenReturn(registration);
 
@@ -71,8 +75,10 @@ public class RegistrationRestControllerTest {
                 .andExpect(jsonPath("$.numWeek").value(5));
     }
 
+    // Test for adding and assigning to skier and course
     @Test
     public void testAddAndAssignToSkierAndCourse() throws Exception {
+        // Mock the service call
         when(registrationServices.addRegistrationAndAssignToSkierAndCourse(any(Registration.class), anyLong(), anyLong()))
                 .thenReturn(registration);
 
@@ -84,10 +90,12 @@ public class RegistrationRestControllerTest {
                 .andExpect(jsonPath("$.numWeek").value(5));
     }
 
+    // Test for getting number of weeks for a course of instructor by support
     @Test
     public void testNumWeeksCourseOfInstructorBySupport() throws Exception {
         List<Integer> weeks = Arrays.asList(5, 8);
 
+        // Mock the service call
         when(registrationServices.numWeeksCourseOfInstructorBySupport(anyLong(), any(Support.class)))
                 .thenReturn(weeks);
 
