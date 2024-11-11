@@ -23,14 +23,14 @@ pipeline {
                 sh 'mvn compile';
             }
         }
-        /*
+        
          stage('SonarQue') {
             steps {
                 echo 'Analyse de la Qualité du Code : ';
                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Vagrant@2024';
             }
         }
-        */
+        
         stage('Maven Package') {
             steps {
                 echo 'Création du livrable : ';
@@ -42,6 +42,13 @@ pipeline {
         echo 'Verifying JAR file...'
         sh 'ls -l target'
     }
+
+            stage('Maven Deploy') {
+            steps {
+                echo 'Deploy du livrable : ';
+                sh 'mvn deploy -DskipTests';
+            }
+        }
 }
 
           stage('Image') {
