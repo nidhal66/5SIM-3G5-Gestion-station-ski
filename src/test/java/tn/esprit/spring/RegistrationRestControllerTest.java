@@ -106,3 +106,5 @@ public class RegistrationRestControllerTest {
                 .andExpect(jsonPath("$[1]").value(8));
     }
 }
+
+
