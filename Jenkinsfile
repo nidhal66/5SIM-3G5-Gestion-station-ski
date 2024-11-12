@@ -37,11 +37,7 @@ pipeline {
                 sh 'mvn package -DskipTests';
             }
         }
-        stage('Verify Package') {
-    steps {
-        echo 'Verifying JAR file...'
-        sh 'ls -l target'
-    }
+       
 
             stage('Maven Deploy') {
             steps {
@@ -49,7 +45,7 @@ pipeline {
                 sh 'mvn deploy -DskipTests';
             }
         }
-}
+
 
           stage('Image') {
             steps {
