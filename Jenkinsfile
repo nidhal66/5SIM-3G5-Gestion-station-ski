@@ -37,14 +37,14 @@ pipeline {
                 sh 'mvn package -DskipTests';
             }
         }
-       
+       /*
 
             stage('Maven Deploy') {
             steps {
                 echo 'Deploy du livrable : ';
                 sh 'mvn deploy -DskipTests';
             }
-        }
+        }*/
 
 
           stage('Image') {
