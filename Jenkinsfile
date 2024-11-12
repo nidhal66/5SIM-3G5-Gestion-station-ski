@@ -23,6 +23,12 @@ pipeline {
                 sh 'mvn compile';
             }
         }
+        stage('Maven test') {
+            steps {
+                echo 'test du Projet : ';
+                sh 'mvn test';
+            }
+        }
 
         stage('SonarQue') {
             steps {
